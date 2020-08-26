@@ -17,7 +17,7 @@ public class DBConnection {
 		Connection connection = null;
 		
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/LaSantafesi", "root", "");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Linw_Document", "root", "");
 			if (connection != null) {
 				System.out.println("Connection sucesfull");
 			}
