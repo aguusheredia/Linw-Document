@@ -1,12 +1,14 @@
 /**
  * 
  */
-package com.Linw.LinwDoument.DAO;
+package com.Linw.LinwDocument.DAO;
 
 /**
  * @author La falsa Mac
  *
  */
+
+
 public class DocumentDao {
 
 }

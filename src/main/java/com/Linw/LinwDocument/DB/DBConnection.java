@@ -1,11 +1,12 @@
 /**
  * 
  */
-package com.Linw.LinwDocument.Service;
+package com.Linw.LinwDocument.DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import static com.Linw.LinwDocument.DB.DataBase.*;
 
 /**
  * @author AguusHeredia
@@ -17,11 +18,11 @@ public class DBConnection {
 		Connection connection = null;
 		
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Linw_Document", "root", "");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			if (connection != null) {
-				System.out.println("Connection sucesfull");
 			}
-		}catch (SQLException e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		}
 		return connection;

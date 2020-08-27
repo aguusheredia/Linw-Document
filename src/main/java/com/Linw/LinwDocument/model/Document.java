@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class Document {
 
+	Box box;
 	String tipe;
 	int pages;
 	ArrayList <String> ubication;
