@@ -9,15 +9,15 @@ package com.Linw.LinwDocument.model;
  */
 public class Client {
 
-	String cuil;
+	String cuit;
 	String name;
 
 	
-	public String getCuil() {
-		return cuil;
+	public String getCuit() {
+		return cuit;
 	}
-	public void setCuil(String cuil) {
-		this.cuil = cuil;
+	public void setCuit(String cuil) {
+		this.cuit = cuil;
 	}
 	public String getName() {
 		return name;
@@ -30,7 +30,7 @@ public class Client {
 	public String toString () {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Cliente: ").append(this.name).append("\n");
-		sb.append("Cuil: ").append(this.cuil).append("\n");
+		sb.append("Cuil: ").append(this.cuit).append("\n");
 		return (sb.toString());
 		
 		

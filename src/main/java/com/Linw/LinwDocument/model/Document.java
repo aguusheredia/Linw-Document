@@ -9,9 +9,8 @@ import java.util.Date;
  */
 public class Document {
 
-	Box box;
+	int id;
 	String tipe;
 	int pages;
-	ArrayList <String> ubication;
-	Date entry;
+	Box box;
 }

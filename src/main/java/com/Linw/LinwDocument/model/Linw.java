@@ -13,7 +13,7 @@ import com.Linw.LinwDocument.DAO.ClientDao;
  */
 public class Linw {
 	
-	static ArrayList <Client> clients = new ArrayList <Client>();
+	public ArrayList <Client> clients = new ArrayList <Client>();
 	
 	public void loadClients () {
 		clients = ClientDao.read();
@@ -21,10 +21,12 @@ public class Linw {
 
 	public void printClients () {
 		
+		StringBuilder sb = new StringBuilder ("Clientes:");
+		sb.append("\n");
 		for (Client c: this.clients) {
-			StringBuilder sb = new StringBuilder ();
-			sb.append("Nombre: ").append(c.getName()).append("\n");
-			sb.append("Cuil: ").append(c.getCuil()).append("\n");
+			sb.append(c.toString());
+			sb.append("\n");
 		}
+		System.out.println(sb.toString());
 	}
 }

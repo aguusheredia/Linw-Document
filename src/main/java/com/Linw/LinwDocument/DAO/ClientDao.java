@@ -24,14 +24,16 @@ public class ClientDao {
 		try (Connection connection = dbConnection.getConnection()){
 			PreparedStatement ps = null;
 			try {
-				String query = "INSERT INTO client (" + TCLIENT_CUIL +", " +TCLIENT_NAME+ ") VALUES (?, ?)";
+				String query = "INSERT INTO client (" + TCLIENT_CUIT +", " + TCLIENT_NAME + ") VALUES (?, ?)";
 				ps = connection.prepareStatement(query);
-				ps.setString(1, client.getCuil());
+				ps.setString(1, client.getCuit());
 				ps.setString(2, client.getName());
 				ps.executeUpdate();
 				
 				System.out.println("Se ha cargado el nuevo cliente a la base de datos");
-				
+			
+			}catch (java.sql.SQLIntegrityConstraintViolationException e) {
+				System.out.println("Ya existe un cuil con el mismo cuil");
 			}catch (Exception e) {
 				System.out.println(e);
 			}
@@ -53,7 +55,7 @@ public class ClientDao {
 			
 			while (rs.next()) {
 				Client client = new Client ();
-				client.setCuil(rs.getString(TCLIENT_CUIL));
+				client.setCuit(rs.getString(TCLIENT_CUIT));
 				client.setName(rs.getString(TCLIENT_NAME));
 				clients.add(client);
 			}
@@ -64,12 +66,32 @@ public class ClientDao {
 		
 		return clients;
 	}
+	
+	public static Client read (String cuit) {
+		Client client = new Client();
+		DBConnection dbConnection = new DBConnection();
+		try (Connection connection = dbConnection.getConnection()){
+			String query = "SELECT * FROM " + TCLIENT + " WHERE " + TCLIENT_CUIT + " = ?";
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setString(1, cuit);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			client.setCuit(rs.getString(TCLIENT_CUIT));
+			client.setName(rs.getString(TCLIENT_NAME));
+			
+		}catch (SQLException e) {
+			System.out.println(e);
+		}
+		
+		return client;
+	}
 
-	public static void deleteClient(String cuil) {
+	public static void deleteClient(String cuit) {
 		
 		DBConnection dbConnection = new DBConnection();
 		try (Connection connection = dbConnection.getConnection()){
-			String query = "DELETE FROM " + TCLIENT + " WHERE " + TCLIENT + "." + TCLIENT_CUIL + " = \'" + cuil + "\'";
+			String query = "DELETE FROM " + TCLIENT + " WHERE " + TCLIENT + "." + TCLIENT_CUIT + " = \'" + cuit + "\'";
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.executeUpdate(query);
 			System.out.println("El cliente fue eliminado");
