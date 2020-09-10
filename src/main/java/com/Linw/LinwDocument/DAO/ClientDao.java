@@ -24,16 +24,17 @@ public class ClientDao {
 		try (Connection connection = dbConnection.getConnection()){
 			PreparedStatement ps = null;
 			try {
-				String query = "INSERT INTO client (" + TCLIENT_CUIT +", " + TCLIENT_NAME + ") VALUES (?, ?)";
+				String query = "INSERT INTO client (" + TCLIENT_CUIT +", " + TCLIENT_NAME + ", " + TCLIENT_LABEL +") VALUES (?, ?, ?)";
 				ps = connection.prepareStatement(query);
 				ps.setString(1, client.getCuit());
 				ps.setString(2, client.getName());
+				ps.setString(3, client.getLabel());
 				ps.executeUpdate();
 				
 				System.out.println("Se ha cargado el nuevo cliente a la base de datos");
 			
 			}catch (java.sql.SQLIntegrityConstraintViolationException e) {
-				System.out.println("Ya existe un cuil con el mismo cuil");
+				System.out.println("Ya existe un cliente con el mismo cuil - Label");
 			}catch (Exception e) {
 				System.out.println(e);
 			}
@@ -57,6 +58,7 @@ public class ClientDao {
 				Client client = new Client ();
 				client.setCuit(rs.getString(TCLIENT_CUIT));
 				client.setName(rs.getString(TCLIENT_NAME));
+				client.setLabel(rs.getString(TCLIENT_LABEL));
 				clients.add(client);
 			}
 			
@@ -79,6 +81,7 @@ public class ClientDao {
 			
 			client.setCuit(rs.getString(TCLIENT_CUIT));
 			client.setName(rs.getString(TCLIENT_NAME));
+			client.setLabel(rs.getString(TCLIENT_LABEL));
 			
 		}catch (SQLException e) {
 			System.out.println(e);
@@ -99,5 +102,22 @@ public class ClientDao {
 		}catch (SQLException e) {
 			System.out.println(e);
 		}
+	}
+
+	public static int clientBoxs(String cuit) {
+
+		int boxs = 0;
+		DBConnection dbConnection = new DBConnection ();
+		try (Connection connection = dbConnection.getConnection()){
+			String query = "SELECT COUNT(*) AS count FROM " + TBOX + " WHERE " + TBOX + "." + TBOX_CLIENT + " = \'" + cuit + "\'";
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			boxs = rs.getInt("count");
+			
+		}catch (SQLException e) {
+			System.out.println(e);
+		}
+		return boxs;
 	}
 }

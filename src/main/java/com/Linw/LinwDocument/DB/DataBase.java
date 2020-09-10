@@ -16,11 +16,11 @@ public class DataBase {
 	public static final String TCLIENT = "client";
 	public static final String TCLIENT_CUIT = "cuit";
 	public static final String TCLIENT_NAME = "name";
+	public static final String TCLIENT_LABEL = "label";
 	
 	public static final String TBOX = "box";
 	public static final String TBOX_LABEL = "label";
 	public static final String TBOX_CLIENT = "client";
-	public static final String TBOX_UBICATION = "ubication";
 	public static final String TBOX_ENTRY = "entry";
 	
 	public static final String TDOCUMENT = "document";

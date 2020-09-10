@@ -19,12 +19,16 @@ public class ClientService {
 		
 		String cuit = "";
 		String name = "";
+		String label = "";
 		
 		System.out.println("Indique su numero de cuil");
 		cuit = scan.nextLine();
 		
 		System.out.println("Indique el nombre de la empresa");
 		name = scan.nextLine();
+		
+		System.out.println("Indique el label, solamente 2 caracteres");
+		label = scan.nextLine();
 		
 		while (!(name.length() > 0)) {
 			System.out.println("La empresa debe tener un nombre");
@@ -38,11 +42,32 @@ public class ClientService {
 			cuit = scan.nextLine();
 		}
 		
+		while (!label.matches("^[A-Z]{2}$")) {
+			System.out.println("El label debe tener dos caracteres letras");
+			label = scan.nextLine();
+		}
+		
 		Client client = new Client ();
 		client.setCuit(cuit);
 		client.setName(name);
+		client.setLabel(label);
 		
 		ClientDao.newClientDB(client);
+	}
+	
+	public static int clientBoxes () {
+		
+		Scanner scan = new Scanner (System.in);
+		System.out.println("Indique el número de cuit de la empresa");
+		String cuit = scan.nextLine();
+		
+		
+		return ClientDao.clientBoxs (cuit);
+	}
+	
+	public static int ClientBoxes (String cuit) {
+		
+		return ClientDao.clientBoxs (cuit);
 	}
 	
 	public static void deleteClient () {
@@ -58,6 +83,10 @@ public class ClientService {
 		}
 		
 		ClientDao.deleteClient(cuit);
+	}
+	
+	public static Client findClient (String cuit) {
+		return ClientDao.read(cuit);
 	}
 	
 	public static void findClient () {

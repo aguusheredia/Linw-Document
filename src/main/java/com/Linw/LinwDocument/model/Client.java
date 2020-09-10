@@ -11,6 +11,7 @@ public class Client {
 
 	String cuit;
 	String name;
+	String label;
 
 	
 	public String getCuit() {
@@ -26,11 +27,19 @@ public class Client {
 		this.name = name;
 	}
 	
+	public String getLabel() {
+		return label;
+	}
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	
 	@Override
 	public String toString () {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Cliente: ").append(this.name).append("\n");
-		sb.append("Cuil: ").append(this.cuit).append("\n");
+		sb.append("Cuit: ").append(this.cuit).append("\n");
+		sb.append("Label: ").append(this.label).append("\n");
 		return (sb.toString());
 		
 		
